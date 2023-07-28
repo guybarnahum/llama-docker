@@ -1,7 +1,7 @@
 # grep the version from the mix file
-IMAGE_NAME="llama-cpp-docker"
+IMAGE_NAME=llama-cpp-docker
 VERSION=$(shell docker image inspect $(IMAGE_NAME) --format "{{.ID}}" 2> /dev/null)
-PORT=5000
+PORT=8000
 MOUNT="$(PWD)/../models:/code/models"
 CONTAINERS=$(shell docker ps -a --filter "ancestor=$(IMAGE_NAME)" --format "{{.ID}}")
 

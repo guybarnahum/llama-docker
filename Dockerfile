@@ -24,7 +24,7 @@ WORKDIR /code
 # either download models into image or mount the images from host (in dev)
 #RUN python3 ./scripts/download_models.py
 
-EXPOSE 5000
+EXPOSE 8000
 
 # make sure all messages always reach console
 ENV PYTHONUNBUFFERED=1
