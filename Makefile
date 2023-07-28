@@ -26,10 +26,10 @@ build: ## Build the container
 build-nc: ## Build the container without caching
 	docker build --no-cache -t $(IMAGE_NAME) .
 
-run: ## Run container on port 
-	docker run -i -t --rm -p=$(PORT):$(PORT) --name="$(IMAGE_NAME)" $(IMAGE_NAME)
+run: ## Run container on PORT and with MOUNT 
+	docker run -i -t --rm -p=$(PORT):$(PORT) -v=$(MOUNT) --name="$(IMAGE_NAME)" $(IMAGE_NAME)
 
-run-cli: ## Run container on port 
+run-cli: ## Run container cli on PORT and with MOUNT 
 	docker run -i -t --rm -p=$(PORT):$(PORT) -v=$(MOUNT) --name="$(IMAGE_NAME)" $(IMAGE_NAME) /bin/bash
 
 up: build run ## Run container on port configured (Alias to run)
@@ -44,8 +44,6 @@ stop: ## Stop and remove a running container
 		docker stop $(CONTAINERS); docker rm $(CONTAINERS), \
 		@echo no running containers found \
 	)
-
-release: build-nc publish ## Make a release by building and publishing the `{version}` ans `latest` tagged containers to ECR
 
 # HELPERS
 
