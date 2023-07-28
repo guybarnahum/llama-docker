@@ -27,7 +27,10 @@ build-nc: ## Build the container without caching
 	docker build --no-cache -t $(IMAGE_NAME) .
 
 run: ## Run container on PORT and with MOUNT 
-	docker run -i -t --rm -p=$(PORT):$(PORT) -v=$(MOUNT) --name="$(IMAGE_NAME)" $(IMAGE_NAME)
+	$(if $(strip $(MODEL)), \
+		docker run -i -t --rm -p=$(PORT):$(PORT) -v=$(MOUNT) -e MODEL=$(MODEL) --name="$(IMAGE_NAME)" $(IMAGE_NAME), \
+		@echo MODEL needs to be set to run \
+	)
 
 run-cli: ## Run container cli on PORT and with MOUNT 
 	docker run -i -t --rm -p=$(PORT):$(PORT) -v=$(MOUNT) --name="$(IMAGE_NAME)" $(IMAGE_NAME) /bin/bash

@@ -30,6 +30,9 @@ import uvicorn
 from llama_cpp.server.app import create_app
 
 if __name__ == "__main__":
+
+    # todo: Look for MODEL env variable
+
     app = create_app()
 
     uvicorn.run(

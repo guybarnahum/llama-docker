@@ -13,8 +13,9 @@ RUN  apt-get update \
 COPY requirements.txt .
 
 RUN pip3 install --force-reinstall --upgrade --no-cache-dir wheel
+#  -DLLAMA_METAL=On
 RUN CMAKE_ARGS="-DBUILD_SHARED_LIBS=On" FORCE_CMAKE=1 \
-    pip3 install --force-reinstall --upgrade --no-cache-dir llama-cpp-python
+    pip3 install --force-reinstall --upgrade --no-cache-dir llama-cpp-python[server]
 RUN pip3 install --force-reinstall --upgrade --no-cache-dir -r requirements.txt
 
 RUN mkdir /code
@@ -29,5 +30,5 @@ EXPOSE 8000
 # make sure all messages always reach console
 ENV PYTHONUNBUFFERED=1
     
-COPY app.py .
-CMD ["python3.9", "app.py"]
+COPY fastapi-server.py .
+CMD ["python3", "fastapi-server.py"]
